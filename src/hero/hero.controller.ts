@@ -1,4 +1,4 @@
-import { Controller, OnModuleInit, Get } from '@nestjs/common';
+import { Controller, OnModuleInit, Get, Param } from '@nestjs/common';
 import {
   GrpcMethod,
   ClientGrpc,
@@ -15,7 +15,7 @@ interface HeroService {
   findOne(data: { id: number }): Observable<any>;
 }
 
-@Controller()
+@Controller('hero')
 export class HeroController implements OnModuleInit {
   @Client(grpcClientOptions) private readonly client: ClientGrpc;
   private heroService: HeroService;
@@ -24,8 +24,8 @@ export class HeroController implements OnModuleInit {
     this.heroService = this.client.getService<HeroService>('HeroService');
   }
 
-  @Get()
-  call(): Observable<any> {
-    return this.heroService.findOne({ id: 2 });
+  @Get(':id')
+  call(@Param() params): Observable<any> {
+    return this.heroService.findOne({ id: +params.id });
   }
 }
