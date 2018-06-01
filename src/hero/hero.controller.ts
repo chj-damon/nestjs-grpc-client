@@ -9,7 +9,7 @@ import { HeroById } from './interfaces/hero-by-id.interface';
 import { Hero } from './interfaces/hero.interface';
 import { Observable } from 'rxjs';
 import { join } from 'path';
-import { grpcClientOptions } from '../grpc-client.options';
+import { grpcClientOptions } from '../grpc-hero.options';
 
 interface HeroService {
   findOne(data: { id: number }): Observable<any>;
